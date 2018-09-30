@@ -12,7 +12,6 @@ set(LIB_HEADERS
 )
 
 set(LIB_SOURCES
-    BaseClass.cpp
 )
 
 set(APP_HEADERS
@@ -20,21 +19,6 @@ set(APP_HEADERS
 
 set(APP_SOURCES
   main.cpp
-)
-
-# Define two variables in order not to repeat ourselves.
-set(LIBRARY_NAME SOjsonAssign)
-
-# Define the library
-add_library(${LIBRARY_NAME} SHARED ${LIB_SOURCES})
-set_target_properties(${LIBRARY_NAME} PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated -Wno-float-equal")
-
-# Set the build version. It will be used in the name of the lib, with corresponding
-# symlinks created. SOVERSION could also be specified for api version. 
-set_target_properties(${LIBRARY_NAME} PROPERTIES
-  VERSION ${VERSION}  # ${VERSION} was defined in the main CMakeLists.
-  FRAMEWORK FALSE
-  PUBLIC_HEADER "${LIB_HEADERS}" # specify the public headers
 )
 
 include_directories("${CMAKE_SOURCE_DIR}/include/SOjsonAssign"
@@ -50,7 +34,7 @@ set(APPLICATION_NAME SOjsonAssignrunner)
 add_executable(${APPLICATION_NAME} ${APP_SOURCES})
 
 # Links the target exe (projArunner) against the library (libprojA) and other required libraries
-target_link_libraries(${APPLICATION_NAME} ${LIBRARY_NAME})
+target_link_libraries(${APPLICATION_NAME})
 #
 
 # Says how and where to install software
@@ -58,7 +42,7 @@ target_link_libraries(${APPLICATION_NAME} ${LIBRARY_NAME})
 #   * <prefix>/lib/<libraries>
 #   * header location after install: <prefix>/include/<project>/*.h
 #   * headers can be included by C++ code `#<project>/Bar.hpp>`
-install(TARGETS ${LIBRARY_NAME} ${APPLICATION_NAME}
+install(TARGETS ${APPLICATION_NAME}
   EXPORT ${PROJECT_NAME}Targets            # for downstream dependencies
   ARCHIVE DESTINATION lib COMPONENT libs   # static lib
   RUNTIME DESTINATION bin COMPONENT libs   # binaries

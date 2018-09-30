@@ -14,18 +14,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(SOjsonAssign_INCLUDE_BUILD_DIR "${PROJECT_SOURCE_DIR}/include/")
 set(SOjsonAssign_SRC_BUILD_DIR "${PROJECT_SOURCE_DIR}/src/")
 
-# add a target to generate API documentation with Doxygen
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-    #configure_file(${CMAKE_CURRENT_SOURCE_DIR}/SOjsonAssign.doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/SOjsonAssign.doxyfile @ONLY)
-    set(DOXY_OUTPUT ${CMAKE_SOURCE_DIR}/doc)
-    configure_file("Doxyfile.in" "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile" @ONLY)
-    add_custom_target(doc
-        ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        COMMENT "Generating API documentation with Doxygen" VERBATIM
-        )
-endif(DOXYGEN_FOUND)
 
 set(SOjsonAssign_TARGET_NAME               ${PROJECT_NAME})
 
@@ -74,9 +62,9 @@ configure_file("include/SOjsonAssign/SOjsonAssignVersion.h.in" "${CMAKE_CURRENT_
 # just add them in this list (after a space), or add an include_directories statement in a
 # subdirectory's CMakeLists.
 include_directories(
+    ${PROJECT_SOURCE_DIR}/ext/json/single_include
     ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_BINARY_DIR}/include   # add the binary tree to the search path so that we will find Version.h
-    ${PROJECT_SOURCE_DIR}/ext/json/include
 )
 
 
