@@ -1,0 +1,42 @@
+#ifndef SOjsonAssign_VERSION_H
+#define SOjsonAssign_VERSION_H
+
+#include <string>
+#include <sstream>
+
+/// The current svn revision.
+#define SOjsonAssign_BRANCH "@VCS_BRANCH@"
+#define SOjsonAssign_TAG "@VCS_TAG@"
+#define SOjsonAssign_REVISION "@VCS_REVISION@"
+
+/// Information about the current SOjsonAssign version.
+class SOjsonAssignVersion {
+public:
+  /// @return the current major version of SOjsonAssign.
+  static int getBranch()
+  {
+    return SOjsonAssign_BRANCH;
+  }
+
+  /// @return the current minor version of SOjsonAssign.
+  static int getTag()
+  {
+    return SOjsonAssign_TAG;
+  }
+
+  /// @return the current patch level of SOjsonAssign.
+  static int getRevision()
+  {
+    return SOjsonAssign_REVISION;
+  }
+
+  /// @return the current SOjsonAssign version (MM.mm.pp).
+  static std::string getString()
+  {
+    std::ostringstream version;
+    version << "Branch: " << SOjsonAssign_BRANCH << ' Tag: ' << SOjsonAssign_TAG << ' Revision: ' << SOjsonAssign_REVISION;
+    return version.str();
+  }
+};
+
+#endif // SOjsonAssign_VERSION_H
